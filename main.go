@@ -61,3 +61,12 @@ func main() {
 
 	}
 }
+
+func RegisterLibFunc(fptr interface{}, handle uintptr, name string) {
+	sym, err := purego.Dlsym(handle, name)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Could not load function %q\n", name)
+		os.Exit(1)
+	}
+	purego.RegisterFunc(fptr, sym)
+}

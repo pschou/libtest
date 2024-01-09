@@ -4,5 +4,7 @@ FLAGS := "-s -w -X main.version=${VERSION}"
 
 
 build:
-	CGO_ENABLED=0 go build -ldflags=${FLAGS} -o ${PROG_NAME} .
-	upx --lzma ${PROG_NAME}
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -ldflags=${FLAGS} -o ${PROG_NAME}64 .
+	upx --lzma ${PROG_NAME}64
+	GOOS=linux GOARCH=386 CGO_ENABLED=1 go build -ldflags=${FLAGS} -o ${PROG_NAME}32 .
+	upx --lzma ${PROG_NAME}32
